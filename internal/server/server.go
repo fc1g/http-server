@@ -10,11 +10,11 @@ import (
 )
 
 type Server struct {
-	config   config.ServerConfig
+	config   config.Server
 	listener net.Listener
 }
 
-func New(cfg config.ServerConfig) (*Server, error) {
+func New(cfg config.Server) (*Server, error) {
 	listener, err := net.Listen(cfg.Network, fmt.Sprintf(":%d", cfg.Addr))
 	if err != nil {
 		return nil, fmt.Errorf("failed to open connection on port %d: %w", cfg.Addr, err)
@@ -40,7 +40,7 @@ func (s *Server) Run() error {
 			continue
 		}
 
-		go func(net.Conn) {}(conn)
+		go HandleConnection(conn, s.config.Connection)
 	}
 
 	return nil

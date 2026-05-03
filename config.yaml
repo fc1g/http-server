@@ -1,0 +1,7 @@
+server:
+  network: tcp
+  addr: 3000
+  connection:
+    read_timeout: 30
+    write_timeout: 30
+    buffer_size: 4096
